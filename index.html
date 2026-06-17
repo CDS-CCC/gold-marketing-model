@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+<meta name="x5-page-mode" content="app">
+<meta name="browsermode" content="application">
+<title>投资金品类营销模型</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#0c0e14;--card:#151823;--card2:#1a1e2e;--border:#252a3a;
+--gold:#d4a843;--gold2:#c9952c;--gold3:#b8860b;
+--accent:#3b82f6;--accent2:#8b5cf6;--green:#10b981;--red:#ef4444;--orange:#f59e0b;
+--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;
+--plat:#3b82f6;--bank:#8b5cf6;--brand:#f59e0b
+}
+html{overflow-x:hidden}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans GB',sans-serif;line-height:1.6;transition:background .3s,color .3s;overflow-x:hidden;width:100%}
+body.light{--bg:#f1f5f9;--card:#fff;--card2:#f8fafc;--border:#e2e8f0;--text:#1e293b;--text2:#475569;--text3:#94a3b8}
+
+[contenteditable]{outline:none;border-radius:3px;padding:0 2px;transition:background .15s;word-break:break-word;overflow-wrap:break-word;overflow:hidden;max-width:100%}
+[contenteditable]:hover{background:rgba(212,168,67,.08)}
+[contenteditable]:focus{background:rgba(212,168,67,.15);box-shadow:0 0 0 1px var(--gold)}
+th[contenteditable],td[contenteditable]{overflow:hidden;text-overflow:ellipsis;white-space:normal}
+span[contenteditable]{display:inline}
+
+.container{max-width:1200px;margin:0 auto;padding:20px;overflow:hidden;width:100%}
+
+.header{display:flex;align-items:center;justify-content:space-between;padding:16px 0;margin-bottom:20px;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.header-left{display:flex;align-items:center;gap:12px;min-width:0;overflow:hidden}
+.header-left h1{font-size:22px;font-weight:700;background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;overflow:hidden}
+.header-left .badge{background:var(--gold3);color:#fff;font-size:11px;padding:2px 8px;border-radius:10px;font-weight:600;flex-shrink:0}
+.header-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.btn{display:inline-flex;align-items:center;gap:4px;padding:6px 14px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text2);font-size:13px;cursor:pointer;transition:all .2s;pointer-events:auto;position:relative;z-index:1;white-space:nowrap}
+.btn:hover{border-color:var(--gold);color:var(--gold)}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;border:none;font-weight:600}
+.btn-gold:hover{opacity:.9}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:24px;overflow:hidden}
+.kpi-card{background:linear-gradient(135deg,rgba(255,255,255,.03),rgba(255,255,255,.01));border:1px solid var(--border);border-radius:10px;padding:14px 12px;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s;min-width:0;text-align:center}
+.kpi-card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.2)}
+.kpi-card::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:3px;border-radius:0 0 10px 10px}
+.kpi-card.c-gold::after{background:linear-gradient(90deg,var(--gold),var(--gold2))}.kpi-card.c-blue::after{background:linear-gradient(90deg,var(--accent),#60a5fa)}.kpi-card.c-orange::after{background:linear-gradient(90deg,var(--brand),#fbbf24)}.kpi-card.c-green::after{background:linear-gradient(90deg,var(--green),#34d399)}.kpi-card.c-purple::after{background:linear-gradient(90deg,var(--accent2),#a78bfa)}.kpi-card.c-red::after{background:linear-gradient(90deg,var(--red),#f87171)}
+.kpi-label{font-size:11px;color:var(--text3);margin-bottom:5px;font-weight:600;overflow:hidden;word-break:break-word;letter-spacing:.5px}
+.kpi-value{font-size:22px;font-weight:700;margin-bottom:3px;overflow:hidden;letter-spacing:-.5px}
+.kpi-sub{font-size:10px;color:var(--text3);overflow:hidden;word-break:break-word;opacity:.7}
+.kpi-card.c-gold .kpi-value{color:var(--gold)}.kpi-card.c-blue .kpi-value{color:var(--accent)}.kpi-card.c-orange .kpi-value{color:var(--brand)}.kpi-card.c-green .kpi-value{color:var(--green)}.kpi-card.c-purple .kpi-value{color:var(--accent2)}.kpi-card.c-red .kpi-value{color:var(--red)}
+
+.section{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px;overflow:hidden;max-width:100%}
+.section-title{font-size:16px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px;overflow:hidden;min-width:0}
+.section-title .icon{font-size:18px;flex-shrink:0}
+
+.form-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;overflow:hidden}
+.form-group{display:flex;flex-direction:column;gap:4px;min-width:0;overflow:hidden}
+.form-label{font-size:12px;color:var(--text3);font-weight:500;overflow:hidden;word-break:break-word}
+.form-input{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:14px;font-weight:600;outline:none;transition:border .2s;width:100%;min-width:0}
+.form-input:focus{border-color:var(--gold)}
+.form-input::placeholder{color:var(--text3);font-weight:400}
+.form-unit{font-size:11px;color:var(--text3);margin-top:1px;overflow:hidden;word-break:break-word}
+
+.party-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:16px;table-layout:fixed;overflow:hidden}
+.party-table th{text-align:center;padding:10px 8px;color:var(--text3);font-weight:600;border-bottom:2px solid var(--border);font-size:12px;overflow:hidden;word-break:break-word}
+.party-table td{padding:10px 8px;border-bottom:1px solid var(--border);text-align:center;vertical-align:middle;overflow:hidden}
+.party-table tr:last-child td{border-bottom:none}
+.party-table .party-name-cell{display:flex;align-items:center;gap:6px;justify-content:center;overflow:hidden}
+.party-table .party-icon{font-size:18px;flex-shrink:0}
+.party-table .party-name-input{background:transparent;border:none;border-bottom:1px solid var(--border);color:var(--text);font-size:14px;font-weight:600;text-align:center;width:70px;outline:none;padding:2px 0}
+.party-table .party-name-input:focus{border-color:var(--gold)}
+.party-table .t-input{background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:6px 8px;color:var(--text);font-size:13px;font-weight:600;outline:none;width:90px;text-align:right;flex-shrink:0}
+.party-table .t-input:focus{border-color:var(--gold)}
+.party-table .t-unit{font-size:11px;color:var(--text3);margin-left:2px}
+
+.party-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px;overflow:hidden}
+.party-card{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;min-width:0;overflow:hidden}
+.party-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 auto 8px}
+.party-name{font-size:14px;font-weight:600;margin-bottom:4px;overflow:hidden;word-break:break-word}
+.party-amount{font-size:22px;font-weight:700;margin-bottom:2px}
+.party-share{font-size:12px;color:var(--text3);overflow:hidden;word-break:break-word}
+.party-card:nth-child(1) .party-icon{background:rgba(59,130,246,.15);color:var(--plat)}
+.party-card:nth-child(1) .party-amount{color:var(--plat)}
+.party-card:nth-child(2) .party-icon{background:rgba(139,92,246,.15);color:var(--bank)}
+.party-card:nth-child(2) .party-amount{color:var(--bank)}
+.party-card:nth-child(3) .party-icon{background:rgba(245,158,11,.15);color:var(--brand)}
+.party-card:nth-child(3) .party-amount{color:var(--brand)}
+
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;overflow:hidden;min-width:0}
+.chart-card{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:16px;overflow:hidden;min-width:0}
+.chart-title{font-size:13px;font-weight:600;margin-bottom:12px;color:var(--text2);overflow:hidden;word-break:break-word}
+canvas{width:100%;max-width:100%;max-height:260px;display:block}
+
+.scroll-top{position:fixed;bottom:24px;right:24px;width:40px;height:40px;border-radius:10px;background:var(--gold);color:#fff;display:none;align-items:center;justify-content:center;cursor:pointer;z-index:100;font-size:18px;box-shadow:0 4px 12px rgba(212,168,67,.3)}
+.scroll-top.show{display:flex}
+
+@media print{.header-right,.scroll-top{display:none!important}body{background:#fff;color:#000}.card,.section{border:1px solid #ccc}}
+
+@media(max-width:768px){
+.container{padding:12px}
+.header{flex-wrap:wrap;gap:8px}
+.header-left h1{font-size:17px}
+.kpi-grid{grid-template-columns:repeat(4,1fr);gap:10px}
+.kpi-value{font-size:18px}
+.form-grid{grid-template-columns:1fr}
+.party-row{grid-template-columns:1fr}
+.chart-row{grid-template-columns:1fr}
+.party-table{font-size:12px}
+.party-table .t-input{width:70px;font-size:12px;padding:5px 4px}
+.party-table th,.party-table td{padding:8px 4px}
+}
+@media(max-width:400px){
+.kpi-grid{grid-template-columns:repeat(2,1fr)}
+.kpi-value{font-size:16px}
+.header-left h1{font-size:15px}
+.party-table{display:block;overflow-x:auto}
+}
+</style>
+</head>
+<body>
+<div class="container">
+<!-- Header -->
+<div class="header">
+<div class="header-left">
+<h1><span contenteditable="true" data-cid="title">🪙 投资金品类营销模型</span></h1>
+<span class="badge" contenteditable="true" data-cid="badge">V2</span>
+</div>
+<div class="header-right">
+<button class="btn" onclick="toggleTheme()" id="themeBtn">🌙 暗色</button>
+<button class="btn" onclick="resetModel()">🔄 重置</button>
+<button class="btn btn-gold" onclick="exportModel()">📊 导出数据</button>
+</div>
+</div>
+
+<!-- KPI Row: 7 cards -->
+<div class="kpi-grid">
+<div class="kpi-card c-gold">
+<div class="kpi-label" contenteditable="true" data-cid="kpi-label-1">总交易规模</div>
+<div class="kpi-value" id="kpiTotal">--</div>
+<div class="kpi-sub" contenteditable="true" data-cid="kpi-sub-1">三方合计（亿元）</div>
+</div>
+<div class="kpi-card c-blue">
+<div class="kpi-label" contenteditable="true" data-cid="kpi-label-2">科技费用合计</div>
+<div class="kpi-value" id="kpiTechCost">--</div>
+<div class="kpi-sub" contenteditable="true" data-cid="kpi-sub-2">三方科技投入（万元）</div>
+</div>
+<div class="kpi-card c-orange">
+<div class="kpi-label" contenteditable="true" data-cid="kpi-label-3">零售费用合计</div>
+<div class="kpi-value" id="kpiRetailCost">--</div>
+<div class="kpi-sub" contenteditable="true" data-cid="kpi-sub-3">三方零售投入（万元）</div>
+</div>
+<div class="kpi-card c-green">
+<div class="kpi-label" contenteditable="true" data-cid="kpi-label-4">总费用投入</div>
+<div class="kpi-value" id="kpiTotalCost">--</div>
+<div class="kpi-sub" contenteditable="true" data-cid="kpi-sub-4">科技+零售合计（万元）</div>
+</div>
+<div class="kpi-card c-purple">
+<div class="kpi-label" contenteditable="true" data-cid="kpi-label-5">科技占比</div>
+<div class="kpi-value" id="kpiTechRatio">--</div>
+<div class="kpi-sub" contenteditable="true" data-cid="kpi-sub-5">科技/总费用</div>
+</div>
+<div class="kpi-card c-red">
+<div class="kpi-label" contenteditable="true" data-cid="kpi-label-6">零售占比</div>
+<div class="kpi-value" id="kpiRetailRatio">--</div>
+<div class="kpi-sub" contenteditable="true" data-cid="kpi-sub-6">零售/总费用</div>
+</div>
+
+</div>
+
+<!-- Section 1: 基础参数 -->
+<div class="section">
+<div class="section-title"><span class="icon">📋</span> <span contenteditable="true" data-cid="sec1-title">基础参数</span></div>
+<div class="form-grid">
+<div class="form-group">
+<label class="form-label" contenteditable="true" data-cid="form-label-1">年目标交易规模</label>
+<input class="form-input" type="number" id="targetVolume" value="50" step="0.1" oninput="calc()">
+<span class="form-unit" contenteditable="true" data-cid="form-unit-1">亿元</span>
+</div>
+<div class="form-group">
+<label class="form-label" contenteditable="true" data-cid="form-label-2">营销驱动交易规模</label>
+<input class="form-input" type="number" id="mktVolume" value="20" step="0.1" oninput="calc()">
+<span class="form-unit" contenteditable="true" data-cid="form-unit-2">亿元（通过营销费用投入达成）</span>
+</div>
+<div class="form-group">
+<label class="form-label" contenteditable="true" data-cid="form-label-3">实时金价</label>
+<input class="form-input" type="number" id="goldPrice" value="780" step="1" oninput="calc()">
+<span class="form-unit" contenteditable="true" data-cid="form-unit-3">元/克</span>
+</div>
+<div class="form-group">
+<label class="form-label" contenteditable="true" data-cid="form-label-5">小金库每克减</label>
+<input class="form-input" type="number" id="p3Discount" value="16" step="1" oninput="calc()">
+<span class="form-unit" contenteditable="true" data-cid="form-unit-5">元/克</span>
+</div>
+</div>
+</div>
+
+<!-- Section 2: 交易规模 & 费用投入 -->
+<div class="section">
+<div class="section-title"><span class="icon">💰</span> <span contenteditable="true" data-cid="sec2-title">交易规模 & 费用投入</span></div>
+<table class="party-table">
+<thead>
+<tr>
+<th contenteditable="true" data-cid="th-1">参与方</th>
+<th contenteditable="true" data-cid="th-2">交易规模(亿元)</th>
+<th contenteditable="true" data-cid="th-3">科技费用投入(万元)</th>
+<th contenteditable="true" data-cid="th-4">零售费用投入(万元)</th>
+<th contenteditable="true" data-cid="th-5">科技出资比例(%)</th>
+<th contenteditable="true" data-cid="th-6">零售出资比例(%)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<div class="party-name-cell">
+<span class="party-icon">🏪</span>
+<input class="party-name-input" type="text" id="party1Name" value="平台方" oninput="calc()">
+</div>
+</td>
+<td><input class="t-input" type="number" id="p1Vol" value="10" step="0.1" oninput="calc()"><span class="t-unit" contenteditable="true" data-cid="tunit-p1-vol">亿</span></td>
+<td><input class="t-input" type="number" id="p1TechCost" value="2000" step="100" oninput="calc()"><span class="t-unit" contenteditable="true" data-cid="tunit-p1-tech-cost">万</span></td>
+<td><input class="t-input" type="number" id="p1RetailCost" value="500" step="100" oninput="calc()"><span class="t-unit" contenteditable="true" data-cid="tunit-p1-retail-cost">万</span></td>
+<td><input class="t-input" type="number" id="p1TechShare" value="80" step="1" oninput="syncTechRetail(1,'tech')"><span class="t-unit" contenteditable="true" data-cid="tunit-p1-tech">%</span></td>
+<td><input class="t-input" type="number" id="p1RetailShare" value="20" step="1" oninput="syncTechRetail(1,'retail')"><span class="t-unit" contenteditable="true" data-cid="tunit-p1-retail">%</span></td>
+</tr>
+<tr>
+<td>
+<div class="party-name-cell">
+<span class="party-icon">🏦</span>
+<input class="party-name-input" type="text" id="party2Name" value="银行方" oninput="calc()">
+</div>
+</td>
+<td><input class="t-input" type="number" id="p2Vol" value="6" step="0.1" oninput="calc()"><span class="t-unit" contenteditable="true" data-cid="tunit-p2-vol">亿</span></td>
+<td><input class="t-input" type="number" id="p2TechCost" value="1200" step="100" oninput="calc()"><span class="t-unit" contenteditable="true" data-cid="tunit-p2-tech-cost">万</span></td>
+<td><input class="t-input" type="number" id="p2RetailCost" value="550" step="100" oninput="calc()"><span class="t-unit" contenteditable="true" data-cid="tunit-p2-retail-cost">万</span></td>
+<td><input class="t-input" type="number" id="p2TechShare" value="70" step="1" oninput="syncTechRetail(2,'tech')"><span class="t-unit" contenteditable="true" data-cid="tunit-p2-tech">%</span></td>
+<td><input class="t-input" type="number" id="p2RetailShare" value="30" step="1" oninput="syncTechRetail(2,'retail')"><span class="t-unit" contenteditable="true" data-cid="tunit-p2-retail">%</span></td>
+</tr>
+<tr>
+<td>
+<div class="party-name-cell">
+<span class="party-icon">🎁</span>
+<input class="party-name-input" type="text" id="party3Name" value="小金库" oninput="calc()">
+</div>
+</td>
+<td><input class="t-input" type="number" id="p3Vol" value="4" step="0.1" oninput="calc()"><span class="t-unit" contenteditable="true" data-cid="tunit-p3-vol">亿</span></td>
+<td><input class="t-input" type="number" id="p3TechCost" value="800" step="100" oninput="calc()"><span class="t-unit" contenteditable="true" data-cid="tunit-p3-tech-cost">万</span></td>
+<td><input class="t-input" type="number" id="p3RetailCost" value="200" step="100" oninput="calc()"><span class="t-unit" contenteditable="true" data-cid="tunit-p3-retail-cost">万</span></td>
+<td><input class="t-input" type="number" id="p3TechShare" value="80" step="1" oninput="syncTechRetail(3,'tech')"><span class="t-unit" contenteditable="true" data-cid="tunit-p3-tech">%</span></td>
+<td><input class="t-input" type="number" id="p3RetailShare" value="20" step="1" oninput="syncTechRetail(3,'retail')"><span class="t-unit" contenteditable="true" data-cid="tunit-p3-retail">%</span></td>
+</tr>
+</tbody>
+</table>
+
+<div class="party-row">
+<div class="party-card">
+<div class="party-icon" id="pc1Icon">🏪</div>
+<div class="party-name" id="pc1Name">平台方</div>
+<div class="party-amount" id="pc1Amount">--</div>
+<div class="party-detail" id="pc1Detail" style="font-size:12px;color:var(--text3);margin-top:4px;line-height:1.6">--</div>
+<div class="party-share" id="pc1Share">--</div>
+</div>
+<div class="party-card">
+<div class="party-icon" id="pc2Icon">🏦</div>
+<div class="party-name" id="pc2Name">银行方</div>
+<div class="party-amount" id="pc2Amount">--</div>
+<div class="party-detail" id="pc2Detail" style="font-size:12px;color:var(--text3);margin-top:4px;line-height:1.6">--</div>
+<div class="party-share" id="pc2Share">--</div>
+</div>
+<div class="party-card">
+<div class="party-icon" id="pc3Icon">🎁</div>
+<div class="party-name" id="pc3Name">小金库</div>
+<div class="party-amount" id="pc3Amount">--</div>
+<div class="party-detail" id="pc3Detail" style="font-size:12px;color:var(--text3);margin-top:4px;line-height:1.6">--</div>
+<div class="party-share" id="pc3Share">--</div>
+</div>
+</div>
+</div>
+
+<!-- Section 3: 可视化分析 -->
+<div class="section">
+<div class="section-title"><span class="icon">📊</span> <span contenteditable="true" data-cid="sec3-title">可视化分析</span></div>
+<div class="chart-row">
+<div class="chart-card">
+<div class="chart-title" contenteditable="true" data-cid="chart-title-1">费用投入结构</div>
+<canvas id="stackedBarChart"></canvas>
+</div>
+<div class="chart-card">
+<div class="chart-title" contenteditable="true" data-cid="chart-title-2">科技/零售出资占比</div>
+<canvas id="ratioBarChart"></canvas>
+</div>
+</div>
+<div class="chart-row">
+<div class="chart-card">
+<div class="chart-title" contenteditable="true" data-cid="chart-title-3">交易规模对比</div>
+<canvas id="volCompareChart"></canvas>
+</div>
+<div class="chart-card">
+<div class="chart-title" contenteditable="true" data-cid="chart-title-4">整体费用分布</div>
+<canvas id="donutChart"></canvas>
+</div>
+</div>
+</div>
+</div>
+
+<div class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
+<script>
+function gv(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+function gt(id){return document.getElementById(id).value||'';}
+function isLight(){return document.body.classList.contains('light');}
+function txtColor(){return isLight()?'#475569':'#94a3b8';}
+function txtDark(){return isLight()?'#1e293b':'#e2e8f0';}
+function gridLine(){return isLight()?'#e2e8f0':'#1e2d3d';}
+
+function syncTechRetail(party,source){
+var techId='p'+party+'TechShare',retailId='p'+party+'RetailShare';
+if(source==='tech'){
+var t=gv(techId);document.getElementById(retailId).value=Math.max(0,(100-t).toFixed(1)).replace(/\.0$/,'');
+}else{
+var r=gv(retailId);document.getElementById(techId).value=Math.max(0,(100-r).toFixed(1)).replace(/\.0$/,'');
+}
+calc();
+}
+
+function calc(){
+var targetVol=gv('targetVolume'),mktVol=gv('mktVolume'),goldPrice=gv('goldPrice'),p3Discount=gv('p3Discount');
+var p1Name=gt('party1Name'),p2Name=gt('party2Name'),p3Name=gt('party3Name');
+var p1Vol=gv('p1Vol'),p2Vol=gv('p2Vol'),p3Vol=gv('p3Vol');
+var p1TechCost=gv('p1TechCost'),p2TechCost=gv('p2TechCost'),p3TechCost=gv('p3TechCost');
+var p1RetailCost=gv('p1RetailCost'),p2RetailCost=gv('p2RetailCost'),p3RetailCost=gv('p3RetailCost');
+var p1TechShare=gv('p1TechShare'),p1RetailShare=gv('p1RetailShare');
+var p2TechShare=gv('p2TechShare'),p2RetailShare=gv('p2RetailShare');
+var p3TechShare=gv('p3TechShare'),p3RetailShare=gv('p3RetailShare');
+
+var totalVol=p1Vol+p2Vol+p3Vol;
+var p1Total=p1TechCost+p1RetailCost, p2Total=p2TechCost+p2RetailCost, p3Total=p3TechCost+p3RetailCost;
+var totalCost=p1Total+p2Total+p3Total;
+var totalTechCost=p1TechCost+p2TechCost+p3TechCost;
+var totalRetailCost=p1RetailCost+p2RetailCost+p3RetailCost;
+var techRatio=totalCost>0?(totalTechCost/totalCost*100):0;
+var retailRatio=totalCost>0?(totalRetailCost/totalCost*100):0;
+
+// KPI
+document.getElementById('kpiTotal').textContent=totalVol.toFixed(1);
+document.getElementById('kpiTechCost').textContent=totalTechCost.toFixed(0)+'万';
+document.getElementById('kpiRetailCost').textContent=totalRetailCost.toFixed(0)+'万';
+document.getElementById('kpiTotalCost').textContent=totalCost.toFixed(0)+'万';
+document.getElementById('kpiTechRatio').textContent=techRatio.toFixed(1)+'%';
+document.getElementById('kpiRetailRatio').textContent=retailRatio.toFixed(1)+'%';
+
+// Party Cards
+document.getElementById('pc1Name').textContent=p1Name||'平台方';
+document.getElementById('pc2Name').textContent=p2Name||'银行方';
+document.getElementById('pc3Name').textContent=p3Name||'小金库';
+document.getElementById('pc1Amount').textContent=p1Total.toFixed(0)+'万';
+document.getElementById('pc2Amount').textContent=p2Total.toFixed(0)+'万';
+document.getElementById('pc3Amount').textContent=p3Total.toFixed(0)+'万';
+document.getElementById('pc1Share').textContent='科技'+p1TechShare+'% | 零售'+p1RetailShare+'%';
+document.getElementById('pc2Share').textContent='科技'+p2TechShare+'% | 零售'+p2RetailShare+'%';
+document.getElementById('pc3Share').textContent='科技'+p3TechShare+'% | 零售'+p3RetailShare+'%';
+document.getElementById('pc1Detail').innerHTML='<span style="color:var(--accent)">科技'+p1TechCost.toFixed(0)+'万</span> + <span style="color:var(--brand)">零售'+p1RetailCost.toFixed(0)+'万</span>';
+document.getElementById('pc2Detail').innerHTML='<span style="color:var(--accent)">科技'+p2TechCost.toFixed(0)+'万</span> + <span style="color:var(--brand)">零售'+p2RetailCost.toFixed(0)+'万</span>';
+document.getElementById('pc3Detail').innerHTML='<span style="color:var(--accent)">科技'+p3TechCost.toFixed(0)+'万</span> + <span style="color:var(--brand)">零售'+p3RetailCost.toFixed(0)+'万</span>';
+
+var names=[p1Name||'平台方',p2Name||'银行方',p3Name||'小金库'];
+var techCosts=[p1TechCost,p2TechCost,p3TechCost];
+var retailCosts=[p1RetailCost,p2RetailCost,p3RetailCost];
+var vols=[p1Vol,p2Vol,p3Vol];
+var techShares=[p1TechShare,p2TechShare,p3TechShare];
+var retailShares=[p1RetailShare,p2RetailShare,p3RetailShare];
+
+drawStackedBar(names,techCosts,retailCosts);
+drawRatioBar(names,techShares,retailShares);
+drawVolCompare(names,vols,techCosts,retailCosts);
+drawDonut(names,techCosts,retailCosts,totalTechCost,totalRetailCost);
+
+if(typeof saveData==='function')saveData();
+}
+
+/* ============ Chart 1: 费用投入结构 (Grouped Bar) ============ */
+function drawStackedBar(names,techCosts,retailCosts){
+var cv=document.getElementById('stackedBarChart');if(!cv)return;
+var dpr=window.devicePixelRatio||1;
+var rect=cv.parentElement.getBoundingClientRect();
+var cw=rect.width,ch=260;
+cv.width=cw*dpr;cv.height=ch*dpr;cv.style.width=cw+'px';cv.style.height=ch+'px';
+var ctx=cv.getContext('2d');ctx.scale(dpr,dpr);
+var w=cw,h=ch,sX=55,sY=h-35,cH=h-60;
+var maxV=Math.max.apply(null,retailCosts.concat(techCosts));if(maxV<=0)maxV=1;
+
+ctx.strokeStyle=gridLine();ctx.lineWidth=0.5;
+for(var i=0;i<=4;i++){
+var y=sY-cH*i/4;ctx.beginPath();ctx.moveTo(sX,y);ctx.lineTo(w-10,y);ctx.stroke();
+ctx.fillStyle='#64748b';ctx.font='10px sans-serif';ctx.textAlign='right';
+ctx.fillText((maxV*i/4).toFixed(0),sX-5,y+3);
+}
+
+var techColor='#3b82f6',retailColor='#f59e0b';
+var n=names.length;
+var groupW=(w-sX-20)/(n+1),barW=Math.min(groupW*0.28,28),barGap=4;
+
+for(var i=0;i<n;i++){
+var cx=sX+groupW*(i+1);
+var techX=cx-barW-barGap/2;
+var retailX=cx+barGap/2;
+
+var techH=Math.min(techCosts[i]/maxV,1)*cH;
+ctx.fillStyle=techColor;
+ctx.beginPath();ctx.roundRect(techX,sY-techH,barW,techH,[3,3,0,0]);ctx.fill();
+
+var retailH=Math.min(retailCosts[i]/maxV,1)*cH;
+ctx.fillStyle=retailColor;
+ctx.beginPath();ctx.roundRect(retailX,sY-retailH,barW,retailH,[3,3,0,0]);ctx.fill();
+
+ctx.fillStyle=techColor;ctx.font='10px sans-serif';ctx.textAlign='center';
+ctx.fillText(techCosts[i].toFixed(0)+'万',techX+barW/2,sY-techH-4);
+
+ctx.fillStyle=retailColor;ctx.font='10px sans-serif';ctx.textAlign='center';
+ctx.fillText(retailCosts[i].toFixed(0)+'万',retailX+barW/2,sY-retailH-4);
+
+ctx.fillStyle=txtColor();ctx.font='12px sans-serif';ctx.textAlign='center';
+var sn=names[i].length>4?names[i].substring(0,4):names[i];
+ctx.fillText(sn,cx,sY+16);
+}
+
+ctx.fillStyle=techColor;ctx.fillRect(w-140,8,10,10);
+ctx.fillStyle=txtColor();ctx.font='11px sans-serif';ctx.textAlign='left';ctx.fillText('科技费用',w-125,17);
+ctx.fillStyle=retailColor;ctx.fillRect(w-140,24,10,10);
+ctx.fillStyle=txtColor();ctx.fillText('零售费用',w-125,33);
+}
+
+/* ============ Chart 2: 科技/零售出资占比 (100% Stacked Horizontal Bar) ============ */
+function drawRatioBar(names,techShares,retailShares){
+var cv=document.getElementById('ratioBarChart');if(!cv)return;
+var dpr=window.devicePixelRatio||1;
+var rect=cv.parentElement.getBoundingClientRect();
+var cw=rect.width,ch=260;
+cv.width=cw*dpr;cv.height=ch*dpr;cv.style.width=cw+'px';cv.style.height=ch+'px';
+var ctx=cv.getContext('2d');ctx.scale(dpr,dpr);
+var w=cw,h=ch;
+
+var n=names.length;
+var barX=80,barW=w-barX-20,barH=Math.min(36,Math.floor((h-80)/n-20)),gap=Math.min(26,Math.floor((h-80-barH*n)/(Math.max(n-1,1)))),startY=40;
+var techC='#3b82f6',retailC='#f59e0b';
+
+for(var i=0;i<n;i++){
+var y=startY+i*(barH+gap);
+var tw=techShares[i]/100*barW;
+var rw=retailShares[i]/100*barW;
+
+ctx.fillStyle=techC;
+ctx.beginPath();ctx.roundRect(barX,y,tw,barH,[4,0,0,4]);ctx.fill();
+
+ctx.fillStyle=retailC;
+ctx.beginPath();ctx.roundRect(barX+tw,y,rw,barH,[0,4,4,0]);ctx.fill();
+
+ctx.fillStyle=txtDark();ctx.font='bold 13px sans-serif';ctx.textAlign='right';
+var sn=names[i].length>4?names[i].substring(0,4):names[i];
+ctx.fillText(sn,barX-10,y+barH/2+4);
+
+ctx.fillStyle='#fff';ctx.font='bold 11px sans-serif';ctx.textAlign='center';
+ctx.fillText(techShares[i]+'%',barX+tw/2,y+barH/2+4);
+ctx.fillStyle='#fff';ctx.font='bold 11px sans-serif';ctx.textAlign='center';
+ctx.fillText(retailShares[i]+'%',barX+tw+rw/2,y+barH/2+4);
+}
+
+ctx.fillStyle=techC;ctx.fillRect(w-170,8,10,10);
+ctx.fillStyle=txtColor();ctx.font='11px sans-serif';ctx.textAlign='left';ctx.fillText('科技出资',w-155,17);
+ctx.fillStyle=retailC;ctx.fillRect(w-170,24,10,10);
+ctx.fillStyle=txtColor();ctx.fillText('零售出资',w-155,33);
+}
+
+/* ============ Chart 3: 交易规模对比 (Grouped Bar) ============ */
+function drawVolCompare(names,vols,techCosts,retailCosts){
+var cv=document.getElementById('volCompareChart');if(!cv)return;
+var dpr=window.devicePixelRatio||1;
+var rect=cv.parentElement.getBoundingClientRect();
+var cw=rect.width,ch=260;
+cv.width=cw*dpr;cv.height=ch*dpr;cv.style.width=cw+'px';cv.style.height=ch+'px';
+var ctx=cv.getContext('2d');ctx.scale(dpr,dpr);
+var w=cw,h=ch,sX=55,sY=h-35,cH=h-60;
+
+var totalCosts=techCosts.map(function(t,i){return t+retailCosts[i];});
+var costYi=totalCosts.map(function(c){return c/10000;});
+var maxV=Math.max.apply(null,vols);if(maxV<=0)maxV=1;
+
+ctx.strokeStyle=gridLine();ctx.lineWidth=0.5;
+for(var i=0;i<=4;i++){
+var y=sY-cH*i/4;ctx.beginPath();ctx.moveTo(sX,y);ctx.lineTo(w-10,y);ctx.stroke();
+ctx.fillStyle='#64748b';ctx.font='10px sans-serif';ctx.textAlign='right';
+ctx.fillText((maxV*i/4).toFixed(1)+'亿',sX-5,y+3);
+}
+
+var volColor='#d4a843',costColor='#3b82f6';
+var n=names.length;
+var groupW=(w-sX-20)/(n+1),barW=Math.min(groupW*0.28,28),barGap=4;
+
+for(var i=0;i<n;i++){
+var cx=sX+groupW*(i+1);
+var volX=cx-barW-barGap/2;
+var costX=cx+barGap/2;
+
+var vh=Math.min(vols[i]/maxV,1)*cH;
+ctx.fillStyle=volColor;
+ctx.beginPath();ctx.roundRect(volX,sY-vh,barW,vh,[3,3,0,0]);ctx.fill();
+ctx.fillStyle=volColor;ctx.font='10px sans-serif';ctx.textAlign='center';
+ctx.fillText(vols[i].toFixed(1)+'亿',volX+barW/2,sY-vh-4);
+
+var ch2=Math.min(costYi[i]/maxV,1)*cH;
+ctx.fillStyle=costColor;
+ctx.beginPath();ctx.roundRect(costX,sY-ch2,barW,ch2,[3,3,0,0]);ctx.fill();
+ctx.fillStyle=costColor;ctx.font='10px sans-serif';ctx.textAlign='center';
+ctx.fillText(totalCosts[i].toFixed(0)+'万',costX+barW/2,sY-ch2-4);
+
+ctx.fillStyle=txtColor();ctx.font='12px sans-serif';ctx.textAlign='center';
+var sn=names[i].length>4?names[i].substring(0,4):names[i];
+ctx.fillText(sn,cx,sY+16);
+}
+
+ctx.fillStyle=volColor;ctx.fillRect(w-180,8,10,10);
+ctx.fillStyle=txtColor();ctx.font='11px sans-serif';ctx.textAlign='left';ctx.fillText('交易规模(亿)',w-165,17);
+ctx.fillStyle=costColor;ctx.fillRect(w-180,24,10,10);
+ctx.fillStyle=txtColor();ctx.fillText('总费用投入(万)',w-165,33);
+}
+
+/* ============ Chart 4: 整体费用分布 (Donut) ============ */
+function drawDonut(names,techCosts,retailCosts,totalTech,totalRetail){
+var cv=document.getElementById('donutChart');if(!cv)return;
+var dpr=window.devicePixelRatio||1;
+var rect=cv.parentElement.getBoundingClientRect();
+var cw=rect.width,ch=260;
+cv.width=cw*dpr;cv.height=ch*dpr;cv.style.width=cw+'px';cv.style.height=ch+'px';
+var ctx=cv.getContext('2d');ctx.scale(dpr,dpr);
+var w=cw,h=ch;
+
+var total=totalTech+totalRetail;if(total<=0)return;
+
+var cx=w*0.38,cy=h/2,R=Math.min(cx,cy)-15,r=R*0.6;
+var segments=[];
+var techC=['#3b82f6','#60a5fa','#93c5fd'];
+var retailC=['#f59e0b','#fbbf24','#fcd34d'];
+for(var i=0;i<names.length;i++){
+segments.push({v:techCosts[i],c:techC[i%3],l:names[i]+'-科技'});
+segments.push({v:retailCosts[i],c:retailC[i%3],l:names[i]+'-零售'});
+}
+
+var startA=-Math.PI/2;
+segments.forEach(function(s){
+if(s.v<=0){startA+=0;return;}
+var angle=s.v/total*Math.PI*2;
+ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,R,startA,startA+angle);ctx.closePath();
+ctx.fillStyle=s.c;ctx.fill();startA+=angle;
+});
+ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);
+ctx.fillStyle=isLight()?'#f8fafc':'#1a1e2e';ctx.fill();
+
+ctx.fillStyle=txtDark();ctx.font='bold 16px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+ctx.fillText(total.toFixed(0)+'万',cx,cy-8);
+ctx.fillStyle='#64748b';ctx.font='11px sans-serif';ctx.fillText('总费用',cx,cy+10);
+
+var lx=w*0.65,ly=12;
+ctx.fillStyle=txtDark();ctx.font='bold 12px sans-serif';ctx.textAlign='left';
+ctx.fillText('科技合计',lx,ly+6);
+ly+=18;
+ctx.fillStyle=techC[0];ctx.fillRect(lx,ly,10,10);
+ctx.fillStyle=txtColor();ctx.font='11px sans-serif';ctx.fillText(totalTech.toFixed(0)+'万 ('+(totalTech/total*100).toFixed(1)+'%)',lx+14,ly+9);
+ly+=20;
+
+for(var i=0;i<names.length;i++){
+ctx.fillStyle=techC[i%3];ctx.fillRect(lx+8,ly,8,8);
+ctx.fillStyle=txtColor();ctx.font='10px sans-serif';
+ctx.fillText(names[i]+' '+techCosts[i].toFixed(0)+'万',lx+20,ly+7);
+ly+=16;
+}
+
+ly+=8;
+ctx.fillStyle=txtDark();ctx.font='bold 12px sans-serif';
+ctx.fillText('零售合计',lx,ly+6);
+ly+=18;
+ctx.fillStyle=retailC[0];ctx.fillRect(lx,ly,10,10);
+ctx.fillStyle=txtColor();ctx.font='11px sans-serif';ctx.fillText(totalRetail.toFixed(0)+'万 ('+(totalRetail/total*100).toFixed(1)+'%)',lx+14,ly+9);
+ly+=20;
+
+for(var i=0;i<names.length;i++){
+ctx.fillStyle=retailC[i%3];ctx.fillRect(lx+8,ly,8,8);
+ctx.fillStyle=txtColor();ctx.font='10px sans-serif';
+ctx.fillText(names[i]+' '+retailCosts[i].toFixed(0)+'万',lx+20,ly+7);
+ly+=16;
+}
+}
+
+/* ============ Theme / Reset / Export ============ */
+function toggleTheme(){
+document.body.classList.toggle('light');
+var btn=document.getElementById('themeBtn');btn.textContent=isLight()?'☀️ 亮色':'🌙 暗色';calc();
+}
+
+function resetModel(){
+document.getElementById('targetVolume').value=50;document.getElementById('mktVolume').value=20;
+document.getElementById('goldPrice').value=780;document.getElementById('p3Discount').value=16;
+document.getElementById('party1Name').value='平台方';document.getElementById('party2Name').value='银行方';document.getElementById('party3Name').value='小金库';
+document.getElementById('p1Vol').value=10;document.getElementById('p1TechCost').value=2000;document.getElementById('p1RetailCost').value=500;document.getElementById('p1TechShare').value=80;document.getElementById('p1RetailShare').value=20;
+document.getElementById('p2Vol').value=6;document.getElementById('p2TechCost').value=1200;document.getElementById('p2RetailCost').value=550;document.getElementById('p2TechShare').value=70;document.getElementById('p2RetailShare').value=30;
+document.getElementById('p3Vol').value=4;document.getElementById('p3TechCost').value=800;document.getElementById('p3RetailCost').value=200;document.getElementById('p3TechShare').value=80;document.getElementById('p3RetailShare').value=20;
+try{localStorage.removeItem(SAVE_KEY);localStorage.removeItem('gold_model_data_v1');localStorage.removeItem('gold_model_data_v2');}catch(e){}
+try{localStorage.removeItem(CE_SAVE_KEY);localStorage.removeItem('gold_model_ce_v1');localStorage.removeItem('gold_model_ce_v2');}catch(e){}
+_ceCache=null;
+if(_ceDefaults){Object.keys(_ceDefaults).forEach(function(cid){var el=document.querySelector('[data-cid="'+cid+'"]');if(el)el.innerHTML=_ceDefaults[cid];});}
+calc();
+}
+
+function exportModel(){
+var lines=['🪙 投资金品类营销模型\n'];
+lines.push('【基础参数】');lines.push('年目标交易规模：'+gv('targetVolume')+' 亿元');lines.push('营销驱动交易规模：'+gv('mktVolume')+' 亿元');lines.push('实时金价：'+gv('goldPrice')+' 元/克');lines.push('小金库每克减：'+gv('p3Discount')+' 元/克');
+var names=[gt('party1Name'),gt('party2Name'),gt('party3Name')];
+var techs=[gv('p1TechCost'),gv('p2TechCost'),gv('p3TechCost')];
+var retails=[gv('p1RetailCost'),gv('p2RetailCost'),gv('p3RetailCost')];
+var vols=[gv('p1Vol'),gv('p2Vol'),gv('p3Vol')];
+lines.push('\n【交易规模 & 费用投入】');
+for(var i=0;i<names.length;i++){lines.push(names[i]+'：交易规模'+vols[i]+'亿，科技费用'+techs[i]+'万，零售费用'+retails[i]+'万');}
+lines.push('\n【核心指标】');lines.push('总交易规模：'+document.getElementById('kpiTotal').textContent+'亿');lines.push('科技费用合计：'+document.getElementById('kpiTechCost').textContent);lines.push('零售费用合计：'+document.getElementById('kpiRetailCost').textContent);lines.push('总费用投入：'+document.getElementById('kpiTotalCost').textContent);lines.push('科技占比：'+document.getElementById('kpiTechRatio').textContent);lines.push('零售占比：'+document.getElementById('kpiRetailRatio').textContent);
+var text=lines.join('\n');try{navigator.clipboard.writeText(text);alert('数据已复制到剪贴板！');}catch(e){prompt('请手动复制：',text);}
+}
+
+window.addEventListener('scroll',function(){var st=document.getElementById('scrollTop');st.classList.toggle('show',window.scrollY>400);});
+var resizeTimer;window.addEventListener('resize',function(){clearTimeout(resizeTimer);resizeTimer=setTimeout(calc,200);});
+
+if(!CanvasRenderingContext2D.prototype.roundRect){CanvasRenderingContext2D.prototype.roundRect=function(x,y,w,h,radii){var r=typeof radii==='number'?[radii,radii,radii,radii]:radii;this.moveTo(x+r[0],y);this.lineTo(x+w-r[1],y);this.quadraticCurveTo(x+w,y,x+w,y+r[1]);this.lineTo(x+w,y+h-r[2]);this.quadraticCurveTo(x+w,y+h,x+w-r[2],y+h);this.lineTo(x+r[3],y+h);this.quadraticCurveTo(x,y+h,x,y+h-r[3]);this.lineTo(x,y+r[0]);this.quadraticCurveTo(x,y,x+r[0],y);this.closePath();};}
+
+// ============================================================
+// ★ localStorage 持久化 - 输入值 + contenteditable 文字
+// ★ 铁律：key名永不改版，新增字段做兼容迁移
+// ============================================================
+var SAVE_KEY='gold_model_data';
+var inputIds=['targetVolume','mktVolume','goldPrice','p3Discount',
+'party1Name','party2Name','party3Name',
+'p1Vol','p1TechCost','p1RetailCost','p1TechShare','p1RetailShare',
+'p2Vol','p2TechCost','p2RetailCost','p2TechShare','p2RetailShare',
+'p3Vol','p3TechCost','p3RetailCost','p3TechShare','p3RetailShare'];
+
+function migrateOldData(){
+var oldKeyMap=[
+{key:'gold_model_data_v2',fieldMap:{p1Cost:'p1TechCost',p1Disc:'p1RetailCost',p2Cost:'p2TechCost',p2Disc:'p2RetailCost',p3Cost:'p3TechCost',p3Disc:'p3RetailCost'}},
+{key:'gold_model_data_v1',fieldMap:{p1Cost:'p1TechCost',p1Disc:'p1RetailCost',p2Cost:'p2TechCost',p2Disc:'p2RetailCost',p3Cost:'p3TechCost',p3Disc:'p3RetailCost'}}
+];
+for(var i=0;i<oldKeyMap.length;i++){
+try{
+var raw=localStorage.getItem(oldKeyMap[i].key);
+if(raw){
+var oldData=JSON.parse(raw);
+var newData={};
+var fm=oldKeyMap[i].fieldMap;
+for(var k in oldData){
+if(fm[k]){newData[fm[k]]=oldData[k];}else{newData[k]=oldData[k];}
+}
+localStorage.setItem(SAVE_KEY,JSON.stringify(newData));
+localStorage.removeItem(oldKeyMap[i].key);
+break;
+}
+}catch(e){}
+}
+try{
+var cur=localStorage.getItem(SAVE_KEY);
+var needSeed=!cur;
+if(cur){
+var d=JSON.parse(cur);
+if(d.party1Name==='平台方'&&d.p1Vol==='10'&&d.p1TechCost==='2000')needSeed=true;
+}
+if(needSeed){
+var seed={
+targetVolume:'50',mktVolume:'20',goldPrice:'780',p3Discount:'16',
+party1Name:'快捷',party2Name:'白条',party3Name:'小金库',
+p1Vol:'31',p1TechCost:'260',p1RetailCost:'4400',p1TechShare:'6',p1RetailShare:'94',
+p2Vol:'31',p2TechCost:'490',p2RetailCost:'4170',p2TechShare:'10',p2RetailShare:'90',
+p3Vol:'4.6',p3TechCost:'0',p3RetailCost:'0',p3TechShare:'50',p3RetailShare:'50'
+};
+localStorage.setItem(SAVE_KEY,JSON.stringify(seed));
+}
+}catch(e){}
+var oldCEKeys=['gold_model_ce_v1','gold_model_ce_v2'];
+for(var i=0;i<oldCEKeys.length;i++){
+try{var raw=localStorage.getItem(oldCEKeys[i]);if(raw){localStorage.setItem('gold_model_ce',raw);localStorage.removeItem(oldCEKeys[i]);break;}}catch(e){}
+}
+}
+
+function saveData(){
+var data={};
+inputIds.forEach(function(id){var el=document.getElementById(id);if(el)data[id]=el.value;});
+try{localStorage.setItem(SAVE_KEY,JSON.stringify(data));}catch(e){}
+}
+
+function loadData(){
+try{var raw=localStorage.getItem(SAVE_KEY);if(!raw)return;var data=JSON.parse(raw);
+inputIds.forEach(function(id){if(data[id]!==undefined){var el=document.getElementById(id);if(el)el.value=data[id];}});
+}catch(e){}
+}
+
+var CE_SAVE_KEY='gold_model_ce';
+var _ceCache=null;
+var _ceDefaults={};
+
+document.querySelectorAll('[data-cid]').forEach(function(el){
+_ceDefaults[el.getAttribute('data-cid')]=el.innerHTML;
+});
+
+function saveCEData(){
+var data={};
+document.querySelectorAll('[data-cid]').forEach(function(el){
+data[el.getAttribute('data-cid')]=el.innerHTML;
+});
+_ceCache=data;
+try{localStorage.setItem(CE_SAVE_KEY,JSON.stringify(data));}catch(e){}
+}
+
+function loadCEData(){
+try{
+var raw=localStorage.getItem(CE_SAVE_KEY);
+if(raw){_ceCache=JSON.parse(raw);applyCESaves();}
+}catch(e){}
+}
+
+function applyCESaves(){
+if(!_ceCache)return;
+document.querySelectorAll('[data-cid]').forEach(function(el){
+var cid=el.getAttribute('data-cid');
+if(_ceCache[cid]!==undefined)el.innerHTML=_ceCache[cid];
+});
+}
+
+document.addEventListener('input',function(e){
+if(e.target.hasAttribute('contenteditable')&&e.target.hasAttribute('data-cid'))saveCEData();
+});
+
+inputIds.forEach(function(id){var el=document.getElementById(id);if(el)el.addEventListener('input',saveData);});
+
+// ============================================================
+// ★ 启动
+// ============================================================
+migrateOldData();
+loadData();
+loadCEData();
+calc();
+</script>
+</body>
+</html>
